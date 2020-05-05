@@ -6,9 +6,9 @@ module.exports = app => {
   // Your code here
   app.log('Yay, the app was loaded!')
 
-  app.on('issues.opened', async context => {
-    const issueComment = context.issue({ body: 'Thanks for opening this issue!' })
-    return context.github.issues.createComment(issueComment)
+  app.on('pull_request.opened', async context => {
+    const pullComment = context.pull({ body: 'Thanks for submitting this Pull Request!' })
+    return context.github.pulls.createComment(pullComment)
   })
 
   // For more information on building apps:
