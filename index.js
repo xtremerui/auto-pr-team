@@ -11,46 +11,18 @@ module.exports = app => {
     if (!config) {
       throw new Error('the configuration file failed to load')
     }
-  
+
     const {
       org,
       team,
     } = config
+
     const owner = context.payload.pull_request.user.login
     const teamsRequest = await context.github.teams.list({ org: config.org})
 
     for (const team of teamsRequest.data) {
       if (team.name == config.team) {
-        console.log(`Found team:`, JSON.stringify(team))
         const teamsRequest = await context.github.teams.addOrUpdateMembershipInOrg({
-          org: config.org,
-          team_slug: team.name,
-          username: owner,
-        });
-        break;
-      }
-    }
-    return
-  })
-
-  app.on('pull_request.closed', async context => {
-    const config = (await context.config('auto_pr_team.yml'))
-
-    if (!config) {
-      throw new Error('the configuration file failed to load')
-    }
-  
-    const {
-      org,
-      team,
-    } = config
-    const owner = context.payload.pull_request.user.login
-    const teamsRequest = await context.github.teams.list({ org: config.org})
-
-    for (const team of teamsRequest.data) {
-      if (team.name == config.team) {
-        console.log(`Found team:`, JSON.stringify(team))
-        const teamsRequest = await context.github.teams.removeMembershipInOrg({
           org: config.org,
           team_slug: team.name,
           username: owner,
