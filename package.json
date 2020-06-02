@@ -21,6 +21,7 @@
     "test:watch": "jest --watch --notify --notifyMode=change --coverage"
   },
   "dependencies": {
+    "@probot/serverless-gcf": "^0.2.0",
     "probot": "^9.5.3"
   },
   "devDependencies": {
@@ -47,5 +48,6 @@
   },
   "jest": {
     "testEnvironment": "node"
-  }
+  },
+  "main": "handler.js",
 }
