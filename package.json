@@ -49,5 +49,5 @@
   "jest": {
     "testEnvironment": "node"
   },
-  "main": "handler.js",
+  "main": "handler.js"
 }

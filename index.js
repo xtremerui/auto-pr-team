@@ -21,15 +21,14 @@ module.exports = app => {
     const teamsRequest = await context.github.teams.list({ org: config.org})
 
     for (const team of teamsRequest.data) {
-      if (team.name == config.team) {
-        const teamsRequest = await context.github.teams.addOrUpdateMembershipInOrg({
+      if (team.slug == config.team) {
+        context.log.info("Sending invite", owner);
+        return context.github.teams.addOrUpdateMembershipInOrg({
           org: config.org,
           team_slug: team.name,
           username: owner,
         });
-        break;
       }
     }
-    return
   })
 }
